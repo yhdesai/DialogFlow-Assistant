@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">DialogFlow_Example</string>
-    <string name="token">enter your token here</string>
 
 
 </resources>

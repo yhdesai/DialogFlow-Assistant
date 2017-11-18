@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity implements AIListener {
 
     private Button listenButton;
     private TextView resultTextView;
-    private TextView actionTextView;
     private AIService aiService;
     private TextView status;
-    private String token = "@string/token";
+
+    // add your client access token here
+    private String token = "0000000000000000000000000000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         setContentView(R.layout.activity_main);
         listenButton = findViewById(R.id.listenButton);
         resultTextView = findViewById(R.id.resultTextView);
-        actionTextView = findViewById(R.id.actionTextView);
         status = findViewById(R.id.status);
         final AIConfiguration config = new AIConfiguration(token,
                 AIConfiguration.SupportedLanguages.English,
