@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements AIListener {
                 "<p><font color=\"blue\">Metadata Intent ID: </font></p>" + metadata.getIntentId() +
                 "<p><font color=\"blue\">Metadata Intent Name: </font></p>" + metadata.getIntentName() +
                 "<p><font color=\"blue\">Parameters: </font></p>" + parameterString +
-                "<p><font color=\"blue\">Metadata: </font></p>" + result.getMetadata() +
+             //   "<p><font color=\"blue\">Metadata: </font></p>" + result.getMetadata() +
                 "<p></p>";
 
 
