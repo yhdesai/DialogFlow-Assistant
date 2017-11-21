@@ -1,7 +1,15 @@
 package io.github.yhdesai.dialogflow_example;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.gson.JsonElement;
+
+import java.util.Map;
 
 import ai.api.AIListener;
 import ai.api.android.AIConfiguration;
@@ -12,14 +20,6 @@ import ai.api.model.Metadata;
 import ai.api.model.Result;
 import ai.api.model.Status;
 
-import com.google.gson.JsonElement;
-
-import java.util.Map;
-
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements AIListener {
 
@@ -27,10 +27,9 @@ public class MainActivity extends AppCompatActivity implements AIListener {
     private Button listenButton;
     private TextView resultTextView;
     private AIService aiService;
-    private TextView status;
 
     // add your client access token here
-    private String token = "0000000000000000000000000000";
+    private String token = "1faaae0c88cb4cd5925c9cea4965c5e4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         setContentView(R.layout.activity_main);
         listenButton = findViewById(R.id.listenButton);
         resultTextView = findViewById(R.id.resultTextView);
-        status = findViewById(R.id.status);
         final AIConfiguration config = new AIConfiguration(token,
                 AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
@@ -56,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         Status status = response.getStatus();
         Result result = response.getResult();
         String action = result.getAction();
+        int statusCode = status.getCode();
+        String query = result.getResolvedQuery();
         final String speech = result.getFulfillment().getSpeech();
         final Metadata metadata = result.getMetadata();
 
@@ -68,39 +68,52 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         }
 
         // Show results in TextView.
-        resultTextView.setText("Query:" + result.getResolvedQuery() +
-                "\nStatus code: " + status.getCode() +
-                "\nStatus type: " + status.getErrorType() +
-                "\nResolved Query: " + result.getResolvedQuery() +
-                "\nAction: " + result.getAction() +
-                "\nSpeech: " + speech +
-                "\nMetadata Intent ID: " + metadata.getIntentId() +
-                "\nMetadata Intent Name: " + metadata.getIntentName() +
-                "\nParameters: " + parameterString
 
-        );
+        String resultText = "<p><font color=\"blue\">Query: </font></p>" +  query +
+                "<p><font color=\"blue\">Status code: </font></p>" + statusCode +
+                "<p><font color=\"blue\">Status type: </font></p>" + status.getErrorType() +
+                "<p><font color=\"blue\">Action: </font></p>" + action +
+                "<p><font color=\"blue\">Speech: </font></p>" + speech +
+                "<p><font color=\"blue\">Metadata Intent ID: </font></p>" + metadata.getIntentId() +
+                "<p><font color=\"blue\">Metadata Intent Name: </font></p>" + metadata.getIntentName() +
+                "<p><font color=\"blue\">Parameters: </font></p>" + parameterString +
+                "<p><font color=\"blue\">Metadata: </font></p>" + result.getMetadata() +
+                "<p></p>";
+
+
+        resultTextView.setText(Html.fromHtml(resultText), TextView.BufferType.SPANNABLE);
+
 
 
     }
 
     @Override
     public void onError(final AIError error) {
-        resultTextView.setText(error.toString());
+
+        String errorText = "<p><font color=\"blue\">Error: </font></p>" + error.toString();
+
+        resultTextView.setText(Html.fromHtml(errorText), TextView.BufferType.SPANNABLE);
+
     }
 
     @Override
     public void onListeningStarted() {
-        status.setText("listening started");
+        listenButton.setText("listening");
+        listenButton.setTextColor(0xffffff00);
     }
 
     @Override
     public void onListeningCanceled() {
-        status.setText("listening cancelled");
+        listenButton.setText("listen");
+        resultTextView.setText("Listening Cancelled");
+        listenButton.setTextColor(0xffffffff);
+
     }
 
     @Override
     public void onListeningFinished() {
-        status.setText("listening finished");
+        listenButton.setText("listen");
+        listenButton.setTextColor(0xffffffff);
     }
 
     @Override
