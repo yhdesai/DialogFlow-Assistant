@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DialogFlow_Dev.iml" filepath="$PROJECT_DIR$/DialogFlow_Dev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DialogFlow_Dev.iml" filepath="$PROJECT_DIR$/DialogFlow_Dev.iml" />
       <module fileurl="file://$PROJECT_DIR$/DialogFlow_Example.iml" filepath="$PROJECT_DIR$/DialogFlow_Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,8 +1,10 @@
 package io.github.yhdesai.dialogflow_example;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements AIListener {
     private AIService aiService;
 
     // add your client access token here
-    private String token = "1faaae0c88cb4cd5925c9cea4965c5e4";
+    private String token = "0c54a2469e984c8ab4a5f934b0552d0c";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements AIListener {
         aiService.setListener(this);
 
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
+            //Do something
+            //aiService.startListening();
+            Intent intent = new Intent(MainActivity.this, Edit_Agent.class);
+            startActivity(intent);
+        }
+        return true;
     }
 
     public void listenButtonOnClick(final View view) {
